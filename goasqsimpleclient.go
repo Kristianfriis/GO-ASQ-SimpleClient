@@ -65,11 +65,11 @@ func (q Queue) GetMessage() (messageBytes []byte, err error) {
 
 		msgToDecode = msg.Text
 
-		// msgIdUrl := msgUrl.NewMessageIDURL(msg.ID)
-		// _, err = msgIdUrl.Delete(q.CTX, msg.PopReceipt)
-		// if err != nil {
-		// 	log.Fatal("Error deleting message: ", err)
-		// }
+		msgIdUrl := msgUrl.NewMessageIDURL(msg.ID)
+		_, err = msgIdUrl.Delete(q.CTX, msg.PopReceipt)
+		if err != nil {
+			log.Fatal("Error deleting message: ", err)
+		}
 	}
 	if msgToDecode != "" {
 		decodedMsg, decodeErr := base64.StdEncoding.DecodeString(msgToDecode)
